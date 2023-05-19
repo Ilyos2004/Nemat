@@ -32,7 +32,6 @@ public class Static {
         listOfCommand.put(new InfoCommands().getName(), new InfoCommands());
         listOfCommand.put(new ShowInfoCommand().getName(), new ShowInfoCommand());
         listOfCommand.put(new ClearCommand().getName(), new ClearCommand());
-        listOfCommand.put(new SaveCommand().getName(), new SaveCommand());
         listOfCommand.put(new SumCommand().getName(), new SumCommand());
         listOfCommand.put(new AverageCommand().getName(), new AverageCommand());
         listOfCommand.put(new PrintDescendingCommand().getName(), new PrintDescendingCommand());
@@ -55,16 +54,17 @@ public class Static {
         listOfNewCommand = new LinkedHashMap<>();
     }
 
-    public static void txt(String s, Attribute art){
+    public static String txt(String s){
         if(Static.isPrint == 1) {
-            System.out.println(colorize(s, art));
+            return s;
         }else{
             try (BufferedWriter writter = new BufferedWriter(new FileWriter(Static.logFileName, true))) {
                 PrintWriter printWritter = new PrintWriter(writter);
                 printWritter.println(s);
             } catch (Exception e) {
-                System.out.println(("Ошибка log файла или неправильный путь!"));
+                return "Ошибка log файла или неправильный путь!";
             }
+            return "";
         }
     }
 

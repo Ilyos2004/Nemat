@@ -2,6 +2,7 @@ package commands;
 
 import dataParseIng.CsvJson;
 import dataParseIng.ParseIng;
+import objectResAns.ObjectResAns;
 import statics.Static;
 import сlasses.Organization;
 
@@ -12,7 +13,7 @@ public class CngSertpCSV implements Command{
 
     private String name = "change_serialization_type_CSV";
     @Override
-    public boolean doo(HashSet<Organization> mySet, String s) {
+    public ObjectResAns doo(HashSet<Organization> mySet, String s) {
         if(Static.isCsv != 1){
             Static.isCsv = 1;
             ParseIng parseCol = new ParseIng();
@@ -22,12 +23,12 @@ public class CngSertpCSV implements Command{
                 HashSet<Organization> tmp = parseCol.getOrganizationFromJson();
                 svCmd.doo(tmp, s);
                 csvJson.saveIsCsv(Static.isCsv);
-                return true;
+                return new ObjectResAns(Static.txt("Converted Serialization Type to CSV!\n"), true);
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                return new ObjectResAns(Static.txt("Error!\n"), false);
             }
         }else {
-            return false;
+            return new ObjectResAns(Static.txt("Serialization Type is CSV!\n"), true);
         }
     }
 

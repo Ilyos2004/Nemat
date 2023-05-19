@@ -26,7 +26,7 @@ public class CsvJson {
         try (BufferedWriter writter = new BufferedWriter(new FileWriter(".tmp/files/tmp.txt"))) {
             writter.write(String.valueOf(isCsv));
         } catch (IOException e) {
-            Static.txt("Ошибка!", Attribute.RED_TEXT());
+            System.out.println("Ошибка!");
             return false;
         }
         return true;

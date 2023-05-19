@@ -1,6 +1,7 @@
 package commands;
 
 import com.diogonunes.jcolor.Attribute;
+import objectResAns.ObjectResAns;
 import statics.Static;
 import сlasses.Organization;
 
@@ -14,9 +15,8 @@ public class NewCommand implements Command{
     }
 
     @Override
-    public boolean doo(HashSet<Organization> mySet, String s) {
-        Static.txt(this.des(), Attribute.NONE());
-        return true;
+    public ObjectResAns doo(HashSet<Organization> mySet, String s) {
+        return new ObjectResAns(Static.txt(this.des() + "\n"), true);
     }
 
     @Override

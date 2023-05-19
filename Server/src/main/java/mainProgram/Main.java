@@ -10,6 +10,7 @@ import statics.Static;
 import сlasses.Organization;
 
 import java.io.*;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -20,16 +21,14 @@ import static com.diogonunes.jcolor.Ansi.colorize;
  * Программа
  */
 public class Main {
-    public static void main(String[] args) throws IOException {
-        Map<String, Command> listCommand = new LinkedHashMap<String, Command>();
-        listCommand.put(new InfoCommands().getName(), new InfoCommands());
-
+    public HashMap<String, HashSet<Organization>> allCmd() throws IOException {
         HashSet<Organization> mySet = new HashSet<>();
         ParseIng parseCol = new ParseIng();
         Commands cmd = new Commands();
         SaveCommand svCmd = new SaveCommand();
         ExecuteScriptCommand exSrCmd = new ExecuteScriptCommand();
         CsvJson csvJson = new CsvJson();
+        String res = "";
 
         CommandNew cmdEd = new CommandNew();
         cmdEd.newCommadsReader();
@@ -47,48 +46,27 @@ public class Main {
                 System.out.println("Ошибка в файле или неправильный путь!");
             }
         }*/
-        Static.fileName = ("Datas/" + args[0]);
+        Static.fileName = ("Datas/" + "data");
         String outputFileName = Static.fileName;
         boolean isScript = false;
 
         if(Static.isCsv == 1) {
             try {
                 mySet = parseCol.getOrganizationFromCsv();
-                Static.txt("Готова!", Attribute.GREEN_TEXT());
+                res = res + "Готова!\n";
             } catch (FileNotFoundException e) {
-                Static.txt("Ошибка в файле или неправильный путь!", Attribute.RED_TEXT());
+                res = res + "Ошибка в файле или неправильный путь!\n";
             }
-        }else if(Static.isCsv == 0){
+        }else if(Static.isCsv == 0) {
             try {
                 mySet = parseCol.getOrganizationFromJson();
-                Static.txt("Готова!", Attribute.GREEN_TEXT());
+                res = res + "Готова!\n";
             } catch (FileNotFoundException e) {
-                Static.txt("Ошибка в файле или неправильный путь!", Attribute.RED_TEXT());
+                res = res + "Ошибка в файле или неправильный путь!\n";
             }
         }
-        System.out.print(colorize("> ", Attribute.BOLD(), Attribute.BLUE_TEXT()));
-
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
-            try (BufferedWriter writter = new BufferedWriter(new FileWriter(outputFileName, true))) {
-                String line;
-                while (!(line = reader.readLine()).equals("exit")) {
-                    cmd.commandsEditor(mySet, line);
-                    if (line.equals("save")){
-                        if(Static.isCsv == 1) {
-                            mySet = parseCol.getOrganizationFromCsv();
-                        }
-                        if(Static.isCsv == 0){
-                            mySet = parseCol.getOrganizationFromJson();
-                        }
-                    }
-
-                    System.out.print(colorize("> ", Attribute.BOLD(), Attribute.BLUE_TEXT()));
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        HashMap<String, HashSet<Organization>> ker = new HashMap<>();
+        ker.put(res, mySet);
+        return ker;
     }
-
 }

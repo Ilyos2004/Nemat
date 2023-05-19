@@ -1,6 +1,7 @@
 package commands;
 
 import com.diogonunes.jcolor.Attribute;
+import objectResAns.ObjectResAns;
 import statics.Static;
 import сlasses.Organization;
 
@@ -12,7 +13,7 @@ public class UpdateByIdCommand implements Command {
     private String name = "update";
 
     @Override
-    public boolean doo(HashSet<Organization> mySet, String s) {
+    public ObjectResAns doo(HashSet<Organization> mySet, String s) {
         Scanner scr = new Scanner(System.in);
         String[] xY = s.split(" ");
         boolean b = false;

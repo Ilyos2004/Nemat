@@ -1,6 +1,7 @@
 package commands;
 
 import com.diogonunes.jcolor.Attribute;
+import objectResAns.ObjectResAns;
 import statics.Static;
 import сlasses.Organization;
 
@@ -13,23 +14,23 @@ public class CommandAdd implements Command{
     private String name = "add_command";
 
     @Override
-    public boolean doo(HashSet<Organization> mySet, String s) {
+    public ObjectResAns doo(HashSet<Organization> mySet, String s) {
         String[] dt = s.split(" ");
+        String allRes = "";
         if(dt.length > 1) {
             Static.listOfNewCommand.put(new NewCommand(dt[1]).getName(), new NewCommand(dt[1]));
-            Static.txt("Команда " + dt[1] + " Добавлена!", Attribute.NONE());
+            allRes = allRes + "Команда " + dt[1] + " Добавлена!" + "\n";
 
             try (BufferedWriter writter = new BufferedWriter(new FileWriter(Static.cmdFileName, true))) {
                 writter.write(dt[1] + "\n");
             } catch (IOException e) {
-                Static.txt("Ошибка в файле или неправильный путь!", Attribute.NONE());
-                return false;
+                allRes = allRes + "Ошибка в файле или неправильный путь!" + "\n";
+                return new ObjectResAns(Static.txt(allRes), false);
             }
-
-            return true;
+            return new ObjectResAns(Static.txt(allRes), true);
         }else {
-            Static.txt("Название Команды Некорректно!", Attribute.NONE());
-            return false;
+            allRes = allRes + "Название Команды Некорректно!\n";
+            return new ObjectResAns(Static.txt(allRes), false);
         }
     }
 

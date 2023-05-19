@@ -1,6 +1,8 @@
 package commands;
 
 import com.diogonunes.jcolor.Attribute;
+import objectResAns.ObjectResAns;
+import org.gradle.internal.file.Stat;
 import statics.Static;
 import сlasses.Organization;
 
@@ -10,11 +12,14 @@ public class ShowInfoCommand implements Command{
     private String name = "show";
 
     @Override
-    public boolean doo(HashSet<Organization> mySet, String s) {
-        for(Organization o: mySet){
-            Static.txt(o.toStringJson(), Attribute.BLUE_TEXT());
+    public ObjectResAns doo(HashSet<Organization> mySet, String s) {
+        StringBuilder allRes = new StringBuilder();
+        if(Static.isCsv == 1){
+            mySet.stream().map(p -> p.toStringCSV() + "\n").forEach(allRes::append);
+        }else{
+            mySet.stream().map(p -> p.toStringJson() + "\n").forEach(allRes::append);
         }
-        return true;
+        return new ObjectResAns(Static.txt(allRes.toString()), true);
     }
 
     @Override

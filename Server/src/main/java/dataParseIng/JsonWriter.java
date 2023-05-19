@@ -13,7 +13,7 @@ public class JsonWriter{
         try (BufferedWriter writter = new BufferedWriter(new FileWriter(fileName, true))) {
             writter.write(s + "\n");
         } catch (IOException e) {
-            Static.txt("Ошибка в файле или неправильный путь!", Attribute.RED_TEXT());
+            System.err.println("Ошибка в файле или неправильный путь!");
             return false;
         }
         return true;

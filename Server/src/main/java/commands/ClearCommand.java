@@ -1,5 +1,7 @@
 package commands;
 
+import objectResAns.ObjectResAns;
+import statics.Static;
 import сlasses.Organization;
 
 import java.util.HashSet;
@@ -7,9 +9,9 @@ import java.util.HashSet;
 public class ClearCommand implements Command{
     private String name = "clear";
     @Override
-    public boolean doo(HashSet<Organization> mySet, String s) {
+    public ObjectResAns doo(HashSet<Organization> mySet, String s) {
         mySet.clear();
-        return true;
+        return new ObjectResAns(Static.txt("Удалено!\n"), true);
     }
 
     @Override

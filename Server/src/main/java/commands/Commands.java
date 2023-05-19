@@ -1,5 +1,6 @@
 package commands;
 
+import objectResAns.ObjectResAns;
 import statics.Static;
 import сlasses.Organization;
 
@@ -13,9 +14,9 @@ import java.util.HashSet;
 
 public class Commands {
 
-    public boolean commandsEditor(HashSet<Organization> mySet, String line) throws IOException {
+    public ObjectResAns commandsEditor(HashSet<Organization> mySet, String line) throws IOException {
         String[] cmdStr = line.split(" ");
-        Static.listOfCommand.get(cmdStr[0]).doo(mySet, line);
+        ObjectResAns obs = Static.listOfCommand.get(cmdStr[0]).doo(mySet, line);
         /*for(Command c: Static.listOfCommand.values()){
             if(c.getName().toString().equals(cmdStr[0])){
                 c.doo(mySet, line);
@@ -23,6 +24,6 @@ public class Commands {
         }*/
         Static.listOfCommand.putAll(Static.listOfNewCommand);
         Static.listOfNewCommand.clear();
-        return true;
+        return obs;
     }
 }

@@ -1,28 +1,38 @@
 package commands;
 
 import com.diogonunes.jcolor.Attribute;
+import objectResAns.ObjectResAns;
 import statics.Static;
 import сlasses.Organization;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
 import java.util.HashSet;
 import java.util.Scanner;
 
-public class UpdateByIdCommand implements Command {
+public class UpdateByIdCommand implements Command{
 
     private String name = "update";
 
     @Override
-    public boolean doo(HashSet<Organization> mySet, String s) {
+    public ObjectResAns doo(HashSet<Organization> mySet, String s, Socket socket, ObjectOutputStream out, ObjectInputStream in) throws IOException, ClassNotFoundException {
         Scanner scr = new Scanner(System.in);
         String[] xY = s.split(" ");
         boolean b = false;
-        boolean isPr = false;
-        if(Static.isPrint == 0){
-            isPr = true;
-            Static.isPrint = 1;
-        }else {
-            isPr = false;
+
+        if(!b){
+            out.writeObject(new ObjectResAns("tmp " + s, true);
+            ObjectResAns serverResponse = null;
+            // Читаем ответ от сервера
+            serverResponse = (ObjectResAns) in.readObject();
+            //System.out.println("Ответ от сервера: " + serverResponse.getResTesxt());
+            if(serverResponse.isResAns()){
+                b = true;
+            }
         }
+
         try {
             if (Integer.parseInt(xY[1]) >= 0 && xY[2].length() != 0) {
                 if(xY[2].indexOf('"') < 0){

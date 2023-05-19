@@ -2,13 +2,18 @@ package commands;
 
 import com.diogonunes.jcolor.Attribute;
 import dataParseIng.ParseIng;
+import objectResAns.ObjectResAns;
 import statics.Static;
 import сlasses.Organization;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ExecuteScriptCommand implements Command {
 
@@ -17,38 +22,29 @@ public class ExecuteScriptCommand implements Command {
     Commands cmd = new Commands();
 
     @Override
-    public boolean doo(HashSet<Organization> mySet, String s) {
-        String[] xY = s.split(" ");
-        boolean b = false;
-        boolean isScript = true;
-        try {
-            if (xY[1].length()!=0) {
-                try (BufferedReader reader = new BufferedReader(new FileReader(("Scripts/" + xY[1])))) {
-                    String line;
-                    while ((line = reader.readLine()) != null) {
-                        cmd.commandsEditor(mySet, line);
-                        if (line.equals("save")){
-                            if(Static.isCsv == 1) {
-                                mySet = parseCol.getOrganizationFromCsv();
-                            }
-                            if(Static.isCsv == 0){
-                                mySet = parseCol.getOrganizationFromJson();
-                            }
-                        }
-                    }
-                    b = true;
-                } catch (IOException e) {
-                    Static.txt("Ошибка в файле или неправильный путь!", Attribute.RED_TEXT());
-                    b = false;
-                }
-                return b;
-            }b = false;
-        } catch (Exception e) {
-            Static.txt("Ошибка формата!", Attribute.RED_TEXT());
-
-            return b;
+    public ObjectResAns doo(HashSet<Organization> mySet, String s) {
+        String allRes = "";
+        Commands cmd = new Commands();
+        Pattern pt = Pattern.compile("\"([^\"]*)\"");
+        Matcher mt = pt.matcher(s);
+        List<String> dt = new ArrayList<>();
+        while(mt.find()){
+            dt.add(mt.group(1));
         }
-        return b;
+
+        for (String tmp: dt) {
+            if(!tmp.equals("Рекурсия!") && !tmp.equals("execute_script")) {
+                try {
+                    allRes = allRes + cmd.commandsEditor(mySet, tmp).getResTesxt();
+                }catch (Exception e){
+                    allRes = allRes + "Ошибка команды!\n";
+                }
+            }
+            if(tmp.equals("Рекурсия!")){
+                allRes = allRes + "Рекурсия!\n";
+            }
+        }
+        return new ObjectResAns(Static.txt(allRes), true);
     }
 
     @Override

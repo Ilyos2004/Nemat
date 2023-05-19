@@ -1,5 +1,6 @@
 package commands;
 
+import objectResAns.ObjectResAns;
 import statics.Static;
 import сlasses.Organization;
 
@@ -8,14 +9,12 @@ import java.util.HashSet;
 public class PrintLogic implements Command{
     private String name = "print_logic_type";
     @Override
-    public boolean doo(HashSet<Organization> mySet, String s) {
+    public ObjectResAns doo(HashSet<Organization> mySet, String s) {
         if(Static.isPrint == 1) {
-            System.out.println("Console");
+            return new ObjectResAns("Console\n", true);
+        }else{
+            return new ObjectResAns("Log File\n", true);
         }
-        if(Static.isPrint == 0){
-            System.out.println("Log File");
-        }
-        return true;
     }
 
     @Override

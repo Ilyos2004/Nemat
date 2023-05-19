@@ -2,6 +2,7 @@ package commands;
 
 import dataParseIng.CsvJson;
 import dataParseIng.ParseIng;
+import objectResAns.ObjectResAns;
 import statics.Static;
 import сlasses.Organization;
 
@@ -13,7 +14,7 @@ public class CngSertpJSON implements Command{
     private String name = "change_serialization_type_JSON";
 
     @Override
-    public boolean doo(HashSet<Organization> mySet, String s) {
+    public ObjectResAns doo(HashSet<Organization> mySet, String s) {
         if(Static.isCsv != 0){
             Static.isCsv = 0;
             ParseIng parseCol = new ParseIng();
@@ -23,18 +24,18 @@ public class CngSertpJSON implements Command{
                 svCmd.doo(tmp, s);
                 CsvJson csvJson = new CsvJson();
                 csvJson.saveIsCsv(Static.isCsv);
-                return true;
+                return new ObjectResAns(Static.txt("Converted Serialization Type to JSON!\n"), true);
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                return new ObjectResAns(Static.txt("Error!\n"), false);
             }
         }else {
-            return false;
+            return new ObjectResAns(Static.txt("Serialization Type is JSON!\n"), true);
         }
     }
 
     @Override
     public String des() {
-        return "change_serialization_type_JSON : Convert Serialization Type to Json";
+        return "change_serialization_type_JSON : Convert Serialization Type to JSON";
     }
 
     @Override

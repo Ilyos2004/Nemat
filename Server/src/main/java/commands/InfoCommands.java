@@ -1,6 +1,7 @@
 package commands;
 
 import com.diogonunes.jcolor.Attribute;
+import objectResAns.ObjectResAns;
 import statics.Static;
 import сlasses.Organization;
 
@@ -15,18 +16,19 @@ public class InfoCommands implements Command{
     }
 
     @Override
-    public boolean doo(HashSet<Organization> set, String s) {
-        Static.txt("Класс:    Organization", Attribute.NONE());
-        Static.txt("id - identification number", Attribute.NONE());
-        Static.txt("name - Название Огранизации", Attribute.NONE());
-        Static.txt("coordinates - кординаты огранизации", Attribute.NONE());
-        Static.txt("creationDate - дата создания", Attribute.NONE());
-        Static.txt("annualTurnover - годовой оборот", Attribute.NONE());
-        Static.txt("type - тип организации", Attribute.NONE());
-        Static.txt("postalAddress - адрес", Attribute.NONE());
+    public ObjectResAns doo(HashSet<Organization> set, String s) {
+        String allRes = "";
+        allRes = allRes + "Класс:    Organization\n" +
+                "id - identification number\n" +
+                "name - Название Огранизации\n" +
+                "coordinates - кординаты огранизации\n" +
+                "creationDate - дата создания\n" +
+                "annualTurnover - годовой оборот\n" +
+                "type - тип организации\n" +
+                "postalAddress - адрес\n\n" +
+                "Количество элементов Колекции: " + set.size() + "\n";
 
-        Static.txt("Количество элементов Колекции: " + set.size(), Attribute.GREEN_TEXT());
-        return true;
+        return new ObjectResAns(Static.txt(allRes), true);
     }
 
     @Override

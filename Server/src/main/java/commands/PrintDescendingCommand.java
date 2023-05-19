@@ -2,6 +2,7 @@ package commands;
 
 import collEdit.Sort;
 import com.diogonunes.jcolor.Attribute;
+import objectResAns.ObjectResAns;
 import statics.Static;
 import сlasses.Organization;
 
@@ -13,14 +14,15 @@ public class PrintDescendingCommand implements Command {
     public String name = "print_descending";
 
     @Override
-    public boolean doo(HashSet<Organization> mySet, String s) {
-        HashMap<Integer, Organization> al = srCmd.sort(mySet);
-        String ss = "";
-        for(Organization o: al.values()){
-            ss = o.getName() + "\n" + ss;
+    public ObjectResAns doo(HashSet<Organization> mySet, String s) {
+        StringBuilder ss = new StringBuilder();
+        if(mySet.size() > 0) {
+            HashMap<Integer, Organization> al = srCmd.sort(mySet);
+            al.values().stream().map(p -> p.getName() + "\n").forEach(ss::append);
+            return new ObjectResAns(Static.txt(ss.toString()), true);
+        }else {
+            return new ObjectResAns(Static.txt("Коллекция пуста!\n"), true);
         }
-        Static.txt(ss, Attribute.NONE());
-        return true;
     }
 
     @Override

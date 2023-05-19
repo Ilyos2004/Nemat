@@ -5,6 +5,7 @@ import com.diogonunes.jcolor.Attribute;
 import dataParseIng.CsvWriter;
 import dataParseIng.DataParse;
 import dataParseIng.JsonWriter;
+import objectResAns.ObjectResAns;
 import statics.Static;
 import сlasses.Organization;
 
@@ -19,26 +20,21 @@ public class SaveCommand implements Command{
     private String name = "save";
 
     @Override
-    public boolean doo(HashSet<Organization> mySet, String s) {
+    public ObjectResAns doo(HashSet<Organization> mySet, String s) {
         if(Static.isCsv == 1) {
             dt.dataEraserCsv(Static.fileName);
             HashMap<Integer, Organization> al = sr.sort(mySet);
             for (Organization o : al.values()) {
                 csvWr.csvWriter(o.toStringCSV(), Static.fileName);
             }
-            Static.txt("Коллекция успешно сохранено!",Attribute.BOLD());
-            return true;
-        }
-        if(Static.isCsv == 0) {
+            return new ObjectResAns(Static.txt("Коллекция успешно сохранено!\n"), true);
+        }else{
             dt.dataEraserJson(Static.fileName);
             HashMap<Integer, Organization> al = sr.sort(mySet);
             for (Organization o : al.values()) {
                 jsnWr.jsonWriter(o.toStringJson(), Static.fileName);
             }
-            Static.txt("Коллекция успешно сохранено!",Attribute.BOLD());
-            return true;
-        }else {
-            return false;
+            return new ObjectResAns(Static.txt("Коллекция успешно сохранено!\n"), true);
         }
     }
 

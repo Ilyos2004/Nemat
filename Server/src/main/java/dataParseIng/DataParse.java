@@ -11,7 +11,7 @@ public class DataParse {
         try (BufferedWriter writter = new BufferedWriter(new FileWriter(fileName))) {
             writter.write("id,name,coordinates.x,coordinates.y,creationDate,annualTurnover,type,postalAddressStreet,postalAddressZipCoder" + "\n");
         } catch (IOException e) {
-            Static.txt("Ошибка в файле или неправильный путь!", Attribute.RED_TEXT());
+            System.err.println("Ошибка в файле или неправильный путь!");
             return false;
         }
         return true;
@@ -22,7 +22,7 @@ public class DataParse {
         try (BufferedWriter writter = new BufferedWriter(new FileWriter(fileName))) {
             writter.write("");
         } catch (IOException e) {
-            Static.txt("Ошибка в файле или неправильный путь!", Attribute.RED_TEXT());
+            System.err.println("Ошибка в файле или неправильный путь!");
             return false;
         }
         return true;
@@ -37,7 +37,7 @@ public class DataParse {
             }
             return sz - 1;
         } catch (IOException e) {
-            Static.txt("Ошибка в файле или неправильный путь!", Attribute.RED_TEXT());
+            System.err.println("Ошибка в файле или неправильный путь!");
         }
         return 0;
     }

@@ -1,6 +1,7 @@
 package commands;
 
 import com.diogonunes.jcolor.Attribute;
+import objectResAns.ObjectResAns;
 import statics.Static;
 import сlasses.Organization;
 
@@ -9,10 +10,9 @@ import java.util.HashSet;
 public class ChgLogToFile implements Command{
     private String name = "change_print_logic_file";
     @Override
-    public boolean doo(HashSet<Organization> mySet, String s) {
-        Static.txt("Changed!", Attribute.NONE());
+    public ObjectResAns doo(HashSet<Organization> mySet, String s) {
         Static.isPrint = 0;
-        return true;
+        return new ObjectResAns("Changed!\n", true);
     }
 
     @Override

@@ -1,11 +1,12 @@
 package commands;
 
+import objectResAns.ObjectResAns;
 import сlasses.Organization;
 
 import java.util.HashSet;
 
 public interface Command {
-    boolean doo(HashSet<Organization> mySet, String s);
+    ObjectResAns doo(HashSet<Organization> mySet, String s);
     String des();
     String getName();
 }
