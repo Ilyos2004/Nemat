@@ -111,5 +111,32 @@ public class Organization {
         return true;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setCoordinates(Coordinates coordinates) {
+        this.coordinates = coordinates;
+    }
+
+    public void setCreationDate(LocalDateTime creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public void setAnnualTurnover(Float annualTurnover) {
+        this.annualTurnover = annualTurnover;
+    }
+
+    public void setType(OrganizationType type) {
+        this.type = type;
+    }
+
+    public void setPostalAddress(Address postalAddress) {
+        this.postalAddress = postalAddress;
+    }
 }
 

@@ -1,9 +1,6 @@
 package serverMng;
 
-import commands.Command;
-import commands.Commands;
-import commands.InfoCommands;
-import commands.SaveCommand;
+import commands.*;
 import mainProgram.Main;
 import objectResAns.ObjectResAns;
 import org.apache.groovy.json.internal.IO;
@@ -80,13 +77,17 @@ public class Server {
             try {
                 while (b) {
                     ObjectResAns clientRequest = null;
-
                     // Читаем запрос от клиента
                     clientRequest = (ObjectResAns) in.readObject();
                     System.out.println("Запрос от клиента: " + clientRequest.getResTesxt());
+                    ObjectResAns response = null;
 
                     // Создаем и отправляем объект Res в ответ клиенту
-                    ObjectResAns response = cmd.commandsEditor(mySet, clientRequest.getResTesxt());
+                    try {
+                        response = cmd.commandsEditor(mySet, clientRequest.getResTesxt());
+                    }catch (Exception e){
+                        response = new ObjectResAns("Ошибка команды\n", false);
+                    }
                     //ObjectResAns response = new ObjectResAns(clientRequest.getResTesxt(), true);
                     out.writeObject(response);
                 }

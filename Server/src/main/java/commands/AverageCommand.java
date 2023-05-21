@@ -18,7 +18,7 @@ public class AverageCommand implements Command{
         OptionalDouble av = OptionalDouble.of(0);
         if(mySet.size() > 0) {
             av = mySet.stream().mapToDouble(Organization::getAnnualTurnover).average();
-            return new ObjectResAns(Static.txt("average of annual turnover: " + av.toString() + "\n"), true);
+            return new ObjectResAns(Static.txt("average of annual turnover: " + av.getAsDouble() + "\n"), true);
         }else {
             return new ObjectResAns(Static.txt("Коллекция пуста!\n"), true);
         }

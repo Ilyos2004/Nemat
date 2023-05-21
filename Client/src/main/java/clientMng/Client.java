@@ -11,6 +11,7 @@ import statics.Static;
 import java.io.*;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.HashSet;
 import java.util.Scanner;
 
 import static com.diogonunes.jcolor.Ansi.colorize;
@@ -58,31 +59,29 @@ public class Client {
                     ObjectResAns response = null;
 
                     if(line.split(" ")[0].equals("add")){
-                        OrganizationAddCommand ex = new OrganizationAddCommand();
-                        response = ex.doo(null, line);
+                        OrganizationAddCommand exx = new OrganizationAddCommand();
+                        response = exx.doo(null, line);
+                        System.out.println(response.getResTesxt());
                     }else if(line.split(" ")[0].equals("execute_script")){
-                        Static.execute = null;
+                        Static.execute = new HashSet<>();
                         Static.execute.add(line.split(" ")[1]);
                         ExecuteScriptCommand ex = new ExecuteScriptCommand();
                         response = ex.doo(null, line);
+                        System.out.println(response.getResTesxt());
                     }else if(line.split(" ")[0].equals("update")){
-                        UpdateByIdCommand up = new UpdateByIdCommand();
-                        response = up.doo(null, line, socket, out, in);
+                        UpdateByIdCommand ex2 = new UpdateByIdCommand();
+                        response = ex2.doo(null, line);
                     }else {
-                        // Создаем и отправляем объект Res на сервер
                         response = new ObjectResAns(line, true);
                     }
+                    // Создаем и отправляем объект Res на сервер
                     out.writeObject(response);
 
                     ObjectResAns serverResponse = null;
-                    try {
-                        // Читаем ответ от сервера
-                        serverResponse = (ObjectResAns) in.readObject();
-                        //System.out.println("Ответ от сервера: " + serverResponse.getResTesxt());
-                        System.out.println(serverResponse.getResTesxt());
-                    } catch (ClassNotFoundException e) {
-                        System.err.println("Ошибка при чтении объекта: " + e.getMessage());
-                    }
+                    // Читаем ответ от сервера
+                    serverResponse = (ObjectResAns) in.readObject();
+                    //System.out.println("Ответ от сервера: " + serverResponse.getResTesxt());
+                    System.out.println(serverResponse.getResTesxt());
 
                     if(line.equals("exit")){
                         System.exit(0);

@@ -27,7 +27,7 @@ public class OrganizationAddCommand implements Command {
 
         Scanner snr = new Scanner(System.in);
         String[] dt = s.split(" ");
-        if(dt.length == 1){
+        if (dt.length == 1) {
             while (name.length() == 0) {
                 System.out.println("Name: ");
                 String nm = snr.nextLine();
@@ -114,17 +114,10 @@ public class OrganizationAddCommand implements Command {
                     System.out.println("Founded \". Try without \".");
                 }
             }
-
-            Organization tmpOr = null;
-            try {
-                tmpOr = new Organization(name, new Coordinates(crX, crY), annualTurnover, Static.orTp.getTypeById(tp), new Address(street, zipCode));
-                if (isPr) {
-                    Static.isPrint = 0;
-                }
-                return new ObjectResAns("add " + name + " " + crX + " " + crY + " " + annualTurnover + " " + Static.orTp.getTypeById(tp).name() + " " + street + " " + zipCode, true);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+            if (isPr) {
+                Static.isPrint = 0;
             }
+            return new ObjectResAns("add \"" + name + "\",\"" + crX + "\",\"" + crY + "\",\"" + annualTurnover + "\",\"" + Static.orTp.getTypeById(tp).name() + "\",\"" + street + "\",\"" + zipCode + "\"", true);
         } else if (dt.length >= 8) {
             String nameNew = dt[1];
             Coordinates cr = new Coordinates(Long.parseLong(dt[2]), Float.parseFloat(dt[3]));
@@ -133,23 +126,16 @@ public class OrganizationAddCommand implements Command {
             OrganizationType ortp = OrganizationType.PUBLIC;
             OrganizationType o_type = ortp.getTypeByName(dt[5].toUpperCase());
             Address ad = new Address(dt[6], dt[7]);
-            Organization data = null;
-            try {
-                data = new Organization(nameNew, cr, anT, o_type, ad);
-                if (isPr) {
-                    Static.isPrint = 0;
-                }
-                return new ObjectResAns("add " + nameNew + " " + cr.getX() + " " + cr.getY() + " " + anT + " " + o_type.name() + " " + ad.getStreet() + " " + ad.getZipCode() , true);
-            } catch (IOException e) {
-                System.out.println("Данные Организации Некорректно!");
-                return new ObjectResAns(null, false);
-            }
-        } else {
-            System.out.println("Название Организации Некорректно!");
             if (isPr) {
                 Static.isPrint = 0;
             }
-            return new ObjectResAns(null, false);
+            return new ObjectResAns("add \"" + nameNew + "\",\"" + cr.getX() + "\",\"" + cr.getY() + "\",\"" + anT + "\",\"" + o_type.name() + "\",\"" + ad.getStreet() + "\",\"" + ad.getZipCode() + "\"", true);
+        }else {
+            System.out.println("Название Организации Некорректноjjj!");
+            if (isPr) {
+                Static.isPrint = 0;
+            }
+            return new ObjectResAns("Название Организации Некорректно!", false);
         }
     }
 

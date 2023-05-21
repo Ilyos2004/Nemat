@@ -22,4 +22,12 @@ public class Address {
     public String getZipCode(){
         return zipCode;
     }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
+    }
 }

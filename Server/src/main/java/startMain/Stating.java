@@ -15,7 +15,7 @@ public class Stating {
             writter.write("\n" + LocalDateTime.now().format(Static.dateTimeFormatter).toString() + "\n\n");
             return true;
         } catch (IOException e) {
-            Static.txt("Ошибка в файле или неправильный путь!", Attribute.RED_TEXT());
+            Static.txt("Ошибка в файле или неправильный путь!");
             return false;
         }
     }

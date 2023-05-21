@@ -30,9 +30,10 @@ public class ExecuteScriptCommand implements Command {
                             ExecuteScriptCommand ex = new ExecuteScriptCommand();
                             ObjectResAns resOb = null;
                             if((resOb = ex.doo(null, line)).isResAns() == true) {
-                                allRes = allRes + ex.doo(null, line);
+                                allRes = allRes + resOb.getResTesxt();
                             }
                         }else{
+                            Static.execute.add(line.split(" ")[1]);
                             allRes = allRes + "\"Рекурсия!\",";
                         }
                     }

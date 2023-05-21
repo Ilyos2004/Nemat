@@ -27,4 +27,12 @@ public class Coordinates {
     public float getY(){
         return this.y;
     }
+
+    public void setX(Long x) {
+        this.x = x;
+    }
+
+    public void setY(float y) {
+        this.y = y;
+    }
 }

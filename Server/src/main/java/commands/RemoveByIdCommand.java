@@ -31,11 +31,15 @@ public class RemoveByIdCommand implements Command{
                 }
             }
             if(b == true){
-                mySet.stream().map(p -> p.getId() == Integer.parseInt(xY[1])).forEach(mySet::remove);
-                if(isPr){
-                    Static.isPrint = 0;
+                for(Organization o: mySet){
+                    if(o.getId() == Integer.parseInt(xY[1])) {
+                        mySet.remove(o);
+                        if (isPr) {
+                            Static.isPrint = 0;
+                        }
+                        return new ObjectResAns(Static.txt("Объект удалено!\n"), true);
+                    }
                 }
-                return new ObjectResAns(Static.txt("Объект удалено!\n"), true);
             }else{
                 if(isPr){
                     Static.isPrint = 0;
@@ -48,6 +52,7 @@ public class RemoveByIdCommand implements Command{
             }
             return new ObjectResAns("Ошибка формата!\n", true);
         }
+        return null;
     }
 
     @Override

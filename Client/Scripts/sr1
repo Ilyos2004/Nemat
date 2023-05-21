@@ -1,5 +1,4 @@
 show
 info
-update 2 name
 show
-save
+execute_script sr
